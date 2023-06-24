@@ -22,7 +22,7 @@ public class SynchronizedSampleApplication implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             Thread thread = new Thread(() -> {
                 try {
                     Thread.sleep(100);

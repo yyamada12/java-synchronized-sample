@@ -2,15 +2,17 @@ package com.example.synchronizedsample;
 
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @Component
 public class Counter {
-    private int count = 0;
+    private final AtomicInteger count = new AtomicInteger(0);
 
     public void increment() {
-            count++;
+            count.getAndIncrement();
     }
 
     public int getCount() {
-        return count;
+        return count.get();
     }
 }
