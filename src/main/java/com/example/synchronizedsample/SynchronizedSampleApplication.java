@@ -6,6 +6,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
+
 @SpringBootApplication
 public class SynchronizedSampleApplication implements ApplicationRunner {
 
@@ -22,7 +24,10 @@ public class SynchronizedSampleApplication implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
+        var l = new ArrayList<Integer>();
+
         for (int i = 0; i < 1000; i++) {
+            int i_ = i;
             Thread thread = new Thread(() -> {
                 try {
                     Thread.sleep(100);
@@ -30,8 +35,7 @@ public class SynchronizedSampleApplication implements ApplicationRunner {
                     throw new RuntimeException(e);
                 }
 
-                counter.increment();
-                System.out.println(counter.getCount());
+                l.add(i_);
             });
             thread.start();
         }
@@ -40,7 +44,7 @@ public class SynchronizedSampleApplication implements ApplicationRunner {
         Thread.sleep(1000);
 
         System.out.println("Main Thread Finish");
-        System.out.println("Counter: " + counter.getCount());
+        System.out.println("num of list: " + l.size());
     }
 
 }
